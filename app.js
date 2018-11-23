@@ -55,7 +55,7 @@ const createPrismUser = (username, token, prismUser, done) => {
   });
 }
 
-const createGoogleUser = (isNew, existingUser, accessToken, refreshToken, g_user, done) => {
+const createGoogleUser = (isNew, existingUser, accessToken, _, g_user, done) => {
   let User = existingUser;
   if (isNew && !existingUser) {
     User = new Users();
@@ -83,9 +83,9 @@ const buildHTTPSPrismOptions = (isLoggedIn, data) => {
       }
       : {
         'Authorization': `Basic ${Buffer.from(encodeURIComponent(JSON.stringify({
-          username: data.username,
-          password: data.password,
           persistent: true,
+          password: data.password,
+          username: data.username,
         }))).toString('base64')}`,
       },
   }

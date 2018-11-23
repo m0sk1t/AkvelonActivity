@@ -3,10 +3,7 @@ const Teams = require('mongoose').model('Teams', {
     type: String,
     required: true,
   },
-  steps: {
-    type: Number,
-    required: false
-  },
+  icon: String,
   color: {
     type: String,
     required: false

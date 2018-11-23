@@ -23,12 +23,8 @@ const Users = require('mongoose').model('Users', {
     email: String,
     image: String,
   },
-  teamId: {
-    type: String,
-  },
-  color: {
-    type: String,
-  }
+  color: String,
+  teamId: String,
 });
 
 module.exports = Users;
