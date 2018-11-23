@@ -5,7 +5,13 @@ const secrets = require('../secrets');
 
 router.get(
   secrets.google.GOOGLE_AUTH_URL,
-  passport.authenticate('google', { scope: ['email', 'profile'] }),
+  passport.authenticate('google', { 
+    scope: [
+      'email',
+      'profile',
+      'https://www.googleapis.com/auth/fitness.activity.read'
+    ]
+  }),
 );
 
 router.get(
