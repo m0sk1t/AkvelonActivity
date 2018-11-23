@@ -16,7 +16,7 @@ const DB = 'aaa';
 
 const secrets = require('./secrets');
 const Users = require('./models/Users');
-const cronUpdateJob = require('./cron-job');
+const cronUpdateJob = require('./CronJob');
 
 app.use(compression());
 app.use(cookieParser());

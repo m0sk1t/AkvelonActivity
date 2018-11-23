@@ -20,16 +20,14 @@ function getUserActivityTimeBounded(token, startDate, endDate, cb) {
         body: generateRequestBody(startDate, endDate),
         url: `https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate?access_token=${token}`,
     }
-
-    request.post(options, cb);
+    return request.post(options, cb);
 }
 
-async function getUserActivity(token, cb) {
+function getUserActivity(token, currentDate, cb) {
     var date = new Date();
-    var currentDate = date.getTime();
     date.setHours(0,0,0,0);
-    var dayBeginningDate = date.getTime();
-    return await getUserActivityTimeBounded(token, dayBeginningDate, currentDate, cb);
+    const dayBeginningDate = date.getTime();
+    return getUserActivityTimeBounded(token, dayBeginningDate, currentDate, cb);
 }
 
 module.exports = { getUserActivity };

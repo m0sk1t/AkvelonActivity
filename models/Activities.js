@@ -1,11 +1,15 @@
 const Activities = require('mongoose').model('Activities', {
-  icon: {
+  userId: {
     type: String,
     required: true,
   },
-  title: {
-    type: String,
+  steps: {
+    type: Number,
     required: true,
+  },
+  timestamp: {
+    type: Date,
+    required: true
   },
 });
 
