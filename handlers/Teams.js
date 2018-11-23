@@ -2,7 +2,7 @@ const Teams = require('../models/Teams');
 
 const newTeam = (req, res) => {
   if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
-  const Team = Teams.create();
+  const Team = new Teams();
   return true; // TODO: Create team
 };
 

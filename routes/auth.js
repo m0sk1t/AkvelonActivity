@@ -1,6 +1,22 @@
+const passport = require('passport');
+const router = require('express').Router();
 const secrets = require('../secrets');
 
+
+router.get(
+  secrets.google.GOOGLE_AUTH_URL,
+  passport.authenticate('google', { scope: ['email', 'profile'] }),
+);
+
+router.get(
+  secrets.google.GOOGLE_CALLBACK_URL,
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (_, res) => res.redirect('/')
+);
+
+
 module.exports = {
+  router,
   ensureAuthenticated: (req, res, next) => {
     if (req.isAuthenticated()) return next();
     res.status(401).send('Unathorized');

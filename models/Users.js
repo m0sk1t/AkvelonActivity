@@ -1,12 +1,31 @@
 const Users = require('mongoose').model('Users', {
-  icon: {
+  googleId: {
     type: String,
-    required: true,
   },
-  title: {
+  avatar: {
     type: String,
-    required: true,
   },
+  email: {
+    type: String,
+  },
+  name: {
+    last: {
+      type: String,
+    },
+    first: {
+      type: String,
+    },
+  },
+  accessToken: {
+    google: {
+      type: String,
+    }
+  },
+  refreshToken: {
+    google: {
+      type: String
+    },
+  }
 });
 
 module.exports = Users;
