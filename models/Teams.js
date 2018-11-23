@@ -1,12 +1,12 @@
 const Teams = require('mongoose').model('Teams', {
-  icon: {
+  name: {
     type: String,
     required: true,
   },
-  title: {
-    type: String,
-    required: true,
-  },
+  steps: {
+    type: Number,
+    required: false
+  }
 });
 
 module.exports = Teams;

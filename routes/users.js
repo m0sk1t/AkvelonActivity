@@ -3,18 +3,21 @@ const router = require('express').Router();
 const auth = require('./auth');
 const {
   getSelf,
+  createUser,
   deleteUser,
   updateUser,
 } = require('../handlers/Users');
 
 if (process.env.NODE_ENV === 'development') {
-  router.get('/', getSelf);
+  router.get('/:id', getSelf);
+  router.post('/', createUser);
   router.put('/', updateUser);
-  router.delete('/', deleteUser);
+  router.delete('/:id', deleteUser);
 } else {
-  router.get('/', auth.ensureAuthenticated, getSelf);
+  router.get('/:id', auth.ensureAuthenticated, getSelf);
+  router.post('/', createUser);
   router.put('/', auth.ensureAuthenticated, updateUser);
-  router.delete('/', auth.ensureAuthenticated, deleteUser);
+  router.delete('/:id', auth.ensureAuthenticated, deleteUser);
 }
 
 module.exports = router;

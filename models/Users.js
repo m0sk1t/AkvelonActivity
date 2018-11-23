@@ -3,10 +3,18 @@ const Users = require('mongoose').model('Users', {
     type: String,
     required: true,
   },
-  title: {
+  name: {
     type: String,
     required: true,
   },
+  steps: {
+    type: Number,
+    required: false
+  },
+  teamId: {
+    type: String,
+    require: false
+  }
 });
 
 module.exports = Users;
