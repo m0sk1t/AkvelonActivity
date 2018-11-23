@@ -17,6 +17,13 @@ const getUser = (req, res) => {
   });
 };
 
+const getUsers = (req, res) => {
+  Users.find().lean().exec((err, Users) => {
+    if (err) return res.status(500).json(err);
+    return res.json(Users);
+  })
+}
+
 const updateUser = (req, res) => Users.findByIdAndUpdate(
   req.body._id,
   req.body,
@@ -33,6 +40,7 @@ const deleteUser = (req, res) => Users.findByIdAndRemove(req.params.id, (err, Us
 module.exports = {
   getSelf,
   getUser,
+  getUsers,
   updateUser,
   deleteUser,
 };

@@ -14,34 +14,22 @@ function generateRequestBody(startDate, endDate) {
      }
 }
 
-async function getUserActivityTimeBounded(token, startDate, endDate) {  
-    var bodyString = generateRequestBody(startDate, endDate);
+function getUserActivityTimeBounded(token, startDate, endDate, cb) {  
     var options = {
-        url: 'https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate?access_token=' + token,
         json: true,
-        body: bodyString
+        body: generateRequestBody(startDate, endDate),
+        url: `https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate?access_token=${token}`,
     }
-    
-    await request.post(options, function (error, response, body) {
-        if (error) {
-            console.log("Unable to get user's activity data.")
-        } else {
-            try {
-                var stepsCount = body.bucket[0].dataset[0].point[0].value[0].intVal;
-                return stepsCount;
-            } catch (e) {
-                console.log("Error while parsing activity for user: " + e)
-            }
-        }
-    });
+
+    request.post(options, cb);
 }
 
-function getUserActivity(token) {
+async function getUserActivity(token, cb) {
     var date = new Date();
     var currentDate = date.getTime();
     date.setHours(0,0,0,0);
     var dayBeginningDate = date.getTime();
-    return getUserActivityTimeBounded(token, dayBeginningDate, currentDate);
+    return await getUserActivityTimeBounded(token, dayBeginningDate, currentDate, cb);
 }
 
 module.exports = { getUserActivity };
