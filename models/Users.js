@@ -1,15 +1,30 @@
 const Users = require('mongoose').model('Users', {
-  icon: {
+  googleId: {
     type: String,
-    required: true,
+  },
+  avatar: {
+    type: String,
+  },
+  email: {
+    type: String,
   },
   name: {
-    type: String,
-    required: true,
+    last: {
+      type: String,
+    },
+    first: {
+      type: String,
+    },
   },
-  steps: {
-    type: Number,
-    required: false
+  accessToken: {
+    google: {
+      type: String,
+    }
+  },
+  refreshToken: {
+    google: {
+      type: String
+    },
   },
   teamId: {
     type: String,
