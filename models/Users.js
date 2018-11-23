@@ -1,37 +1,30 @@
 const Users = require('mongoose').model('Users', {
-  googleId: {
-    type: String,
-  },
-  avatar: {
-    type: String,
-  },
-  email: {
-    type: String,
-  },
-  name: {
-    last: {
-      type: String,
+  prism: {
+    id: String,
+    username: String,
+    accessToken: String,
+    name: {
+      last: String,
+      first: String,
     },
-    first: {
-      type: String,
+    room: String,
+    email: String,
+    phone: String,
+    image: String,
+    skype: String,
+  },
+  google: {
+    id: String,
+    accessToken: String,
+    name: {
+      last: String,
+      first: String,
     },
+    email: String,
+    image: String,
   },
-  accessToken: {
-    google: {
-      type: String,
-    }
-  },
-  refreshToken: {
-    google: {
-      type: String
-    },
-  },
-  teamId: {
-    type: String,
-  },
-  color: {
-    type: String,
-  }
+  color: String,
+  teamId: String,
 });
 
 module.exports = Users;
