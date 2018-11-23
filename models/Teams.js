@@ -6,6 +6,10 @@ const Teams = require('mongoose').model('Teams', {
   steps: {
     type: Number,
     required: false
+  },
+  color: {
+    type: String,
+    required: false
   }
 });
 
