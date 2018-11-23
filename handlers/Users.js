@@ -25,14 +25,14 @@ const getUsers = (req, res) => {
 }
 
 const updateUser = (req, res) => Users.findByIdAndUpdate(
-  req.body._id,
+  req.user._id,
   req.body,
   (err, User) => {
     if (err) return res.status(500).json(err);
     res.json(User);
   });
 
-const deleteUser = (req, res) => Users.findByIdAndRemove(req.params.id, (err, User) => {
+const deleteUser = (req, res) => Users.findByIdAndRemove(req.user._id, (err, User) => {
   if (err) return res.status(500).json(err);
   res.json(User);
 });

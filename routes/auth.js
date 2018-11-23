@@ -21,6 +21,13 @@ router.get(
 );
 
 
+router.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/auth/login'
+  }));
+
+
 module.exports = {
   router,
   ensureAuthenticated: (req, res, next) => {
