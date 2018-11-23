@@ -62,3 +62,6 @@ typings/
 
 # app tokens
 secrets.js
+
+# idea files
+.idea/
