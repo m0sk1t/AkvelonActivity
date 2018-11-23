@@ -5,12 +5,28 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const auth = require('./auth');
 const {
   getSelf,
-  createUser,
   deleteUser,
   updateUser,
 } = require('../handlers/Users');
 const secrets = require('../secrets');
 const Users = require('../models/Users');
+
+const createUser = (isNew, existingUser, accessToken, refreshToken, g_user, done) => {
+  let User = existingUser;
+  if (isNew && !existingUser) {
+    User = new Users();
+    User.googleId = g_user.id;
+  }
+  User.avatar = g_user.image.url;
+  User.email = g_user.emails.length ? g_user.emails[0].value : '';
+  User.accessToken.google = accessToken;
+  User.refreshToken.google = refreshToken;
+  User.name.last = g_user.name.givenName;
+  User.name.first = g_user.name.familyName;
+  User.save((err) => {
+    done(err, User);
+  });
+};
 
 router.get(
   secrets.google.GOOGLE_AUTH_URL,
@@ -61,22 +77,5 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
-
-const createUser = (isNew, existingUser, accessToken, refreshToken, g_user, done) => {
-  let User = existingUser;
-  if (isNew && !existingUser) {
-    User = new Users();
-    User.googleId = g_user.id;
-  }
-  User.avatar = g_user.image.url;
-  User.email = g_user.emails.length ? g_user.emails[0].value : '';
-  User.accessToken.google = accessToken;
-  User.refreshToken.google = refreshToken;
-  User.name.last = g_user.name.givenName;
-  User.name.first = g_user.name.familyName;
-  User.save((err) => {
-    done(err, User);
-  });
-};
 
 module.exports = router;
