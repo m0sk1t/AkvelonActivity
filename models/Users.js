@@ -25,6 +25,14 @@ const Users = require('mongoose').model('Users', {
     google: {
       type: String
     },
+  },
+  teamId: {
+    type: String,
+    require: false
+  },
+  color: {
+    type: String,
+    required: false
   }
 });
 

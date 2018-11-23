@@ -1,22 +1,22 @@
 const Teams = require('../models/Teams');
 
-const newTeam = (req, res) => {
-  if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
-  const Team = new Teams();
-  return true; // TODO: Create team
-};
+const newTeam = (req, res) => Teams.create(
+  req.body,
+  (err, User) => {
+    if (err) return res.status(500).json(err);
+    res.json(User);
+  });
 
 const getTeam = (req, res) => {
-  if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+  if (!req.params.id) return res.status(401).json({ message: 'team id is not specified' });
 
-  Teams.findById(req.user.id).lean().exec((err, Team) => {
+  Teams.findById(req.params.id).lean().exec((err, Team) => {
     if (err || !Team) return res.status(500).json(err);
     return res.json(Team);
   });
 };
 
 const getTeams = (req, res) => {
-  if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
 
   Teams.find({}).lean().exec((err, Teams) => {
     if (err || !Team) return res.status(500).json(err);

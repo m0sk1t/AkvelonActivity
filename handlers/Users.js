@@ -1,9 +1,17 @@
 const Users = require('../models/Users');
 
 const getSelf = (req, res) => {
-  if (!req.user) return res.status(404).json({ message: 'User not found' });
+  if (!req.user) return res.status(401).json({ message: 'Unathorized'});
+  Users.findById(req.user._id).lean().exec((err, User) => {
+    if (err || !User) return res.status(404).json(err);
+    return res.json(User);
+  });
+};
 
-  Users.findById(req.user.id).lean().exec((err, User) => {
+const getUser = (req, res) => {
+  if (!req.params.id) return res.status(404).json({ message: 'user id is not specified'});
+
+  Users.findById(req.params.id).lean().exec((err, User) => {
     if (err || !User) return res.status(500).json(err);
     return res.json(User);
   });
@@ -24,6 +32,7 @@ const deleteUser = (req, res) => Users.findByIdAndRemove(req.params.id, (err, Us
 
 module.exports = {
   getSelf,
+  getUser,
   updateUser,
   deleteUser,
 };
