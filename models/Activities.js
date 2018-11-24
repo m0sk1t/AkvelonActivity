@@ -10,7 +10,7 @@ const Activities = require('mongoose').model('Activities', {
   timestamp: {
     type: Date,
     required: true
-  }
+  },
 });
 
 module.exports = Activities;

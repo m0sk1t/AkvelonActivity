@@ -51,6 +51,7 @@ const deleteUser = (req, res) => {
 module.exports = {
   getSelf,
   getUser,
+  getUsers,
   updateUser,
   deleteUser,
 };

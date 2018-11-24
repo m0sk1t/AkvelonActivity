@@ -16,6 +16,7 @@ const DB = 'aaa';
 
 const secrets = require('./secrets');
 const Users = require('./models/Users');
+const cronUpdateJob = require('./CronJob');
 
 app.use(compression());
 app.use(cookieParser());
@@ -155,6 +156,9 @@ passport.use(new GoogleStrategy({
 ));
 
 app.use(router);
+
+
+cronUpdateJob.start();
 
 mongoose.connect(`mongodb://localhost/${DB}`);
 mongoose.connection.once('open', _ => console.log(`${chalk.green('✓')} successfully connected to db ${DB}!`))
