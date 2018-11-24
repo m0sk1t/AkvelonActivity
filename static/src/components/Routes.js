@@ -13,7 +13,7 @@ const Routes = ({ loggedIn, registered }) => {
   console.log('Routes', loggedIn, registered)
   return (
     <div>
-      <Route path='/' render={() => (
+      <Route exact path='/' render={() => (
         loggedIn
           ? <Redirect push to='/home' />
           : <Redirect push to='/login' />
