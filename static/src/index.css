@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#root {
+  width: 100%;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.nav-item {
+  display: inline-block;
+  padding: .5em 1em;
+  color: rgba(0,0,0,.3);
+}
+
+.nav-item:hover {
+  color: rgba(0,0,0,.7);
+  text-decoration: none;
+}
+
+.nav-item.active {
+  color: rgb(0,0,0);
+}
+
+.nav-item .badge.badge-secondary {
+  background-color: rgba(108, 117, 125,.3);
+}
+
+.nav-item:hover .badge.badge-secondary {
+  background-color: rgba(108, 117, 125,.7);
+}
+
+.nav-item.active .badge.badge-secondary {
+  background-color: rgb(108, 117, 125);
+}
+
+.bg-faded {
+  background-color: #f7f7f7;
+}
+
+.jumbotron {
+  background-color: #ffffff;
+}
+
+.form-signin .btn.btn-primary {
+  margin-top: 10px;
+}
+
+.checkbox label {
+  min-height: 20px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.checkbox label input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.input-group-btn .btn {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.card:hover {
+  cursor: pointer;
+  border-color: #80bdff;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
