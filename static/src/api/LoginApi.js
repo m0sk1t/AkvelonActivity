@@ -1,7 +1,7 @@
 import delay from './delay';
 
 const usersByLogin = {
-  'komarov.artem': {
+  'artem.komarov': {
     id: 3,
     name: 'Artem Komarov',
     registered: true,

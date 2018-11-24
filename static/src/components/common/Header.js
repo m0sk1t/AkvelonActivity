@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuNavigation from './MenuNavigation';
 import { Link } from 'react-router-dom';
-
+import { Button } from "react-bootstrap";
 import { LogoutButton } from '../common/FAButtons';
 
 const Header = ({ displayNavigation, onLogout }) => {
@@ -12,7 +12,11 @@ const Header = ({ displayNavigation, onLogout }) => {
         ? <MenuNavigation/>
         : null}
       {displayNavigation
-        ? <LogoutButton onClick={onLogout}/>
+        ? <span>
+          <Button bsStyle="success" href='/auth/google'>Connect your Google Fit Account</Button>
+          &nbsp;
+          <LogoutButton onClick={onLogout} />
+          </span>
         : null}
     </nav>
   );

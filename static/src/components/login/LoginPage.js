@@ -33,16 +33,19 @@ class LoginPage extends Component{
     });
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.actions.login(this.state);
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    fetch('/auth/login', {
+      method: 'POST',
+      body: new FormData(ev.target),
+    }).then(res => this.props.actions.login(this.state));
   }
 
   render() {
     return (
       <Jumbotron>
         <Form style={formStyle} onSubmit={this.handleSubmit}>
-          <h4 className='card-title'>Log into Prism</h4>
+          <h4 className='card-title'>Login by Prism credentials</h4>
           <FormGroup>
             <FormControl
               type='text'

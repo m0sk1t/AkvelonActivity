@@ -19,13 +19,13 @@ router.get(
 router.get(
   secrets.google.GOOGLE_CALLBACK_URL,
   passport.authenticate('google', { failureRedirect: '/login' }),
-  (_, res) => res.redirect('/')
+  (_, res) => res.redirect('/home')
 );
 
 
 router.post('/login',
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/home',
     failureRedirect: '/auth/login'
   }));
 
