@@ -33,12 +33,15 @@ class RegisterPage extends Component {
       wantJoinTeam: false,
       wantCreateTeam: false,
       shouldRedirect: false,
+      currentUser: this.props.currentUser,
+      color: '',
+      teamName: '',
     };
   }
 
   render() {
-    const { currentUser, teamsByName } = this.props;
-    const { wantJoinTeam, wantCreateTeam } = this.state;
+    const { teamsByName } = this.props;
+    const { wantJoinTeam, wantCreateTeam, currentUser, color, teamName } = this.state;
 
     if (currentUser.registered) {
       return <Redirect push to={`/myActivity`} />;
@@ -70,9 +73,9 @@ class RegisterPage extends Component {
           {wantJoinTeam && !wantCreateTeam && <div>
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Chouse your team</ControlLabel>
-              <FormControl componentClass="select" placeholder="select">
+                <FormControl value={teamName} componentClass="select" onChange={(e) => this.setState({ teamName: e.target.value })}>
                 {Object.values(teamsByName).map(team => {
-                  return <option value={team.name}>{team.name}</option>
+                    return <option key={team.name} value={team.name}>{team.name}</option>
                 })}
               </FormControl>
             </FormGroup>
@@ -122,15 +125,30 @@ class RegisterPage extends Component {
               justifyContent: 'center',
               marginBottom: 20,
             }}>
-              <CirclePicker />
+                <CirclePicker color={color} onChangeComplete={ this.handleChangeComplete }/>
             </div>
           </FormGroup>
 
-          <Button bsStyle="primary" type="submit">Join Akvelon Activity</Button>
+            <Button bsStyle="primary" onClick={this.handleFormSubmit}>Join Akvelon Activity</Button>
           </form>
         </div>
       </Jumbotron>
     );
+  }
+
+  handleChangeComplete = (color) => {
+    this.setState({ color: color.hex });
+  }
+
+  handleFormSubmit = () => {
+    this.props.actions.registerEmployee(
+      {
+        ...this.state.currentUser,
+        registered: true,
+        totalSteps: 756,
+        color: this.state.color,
+        teamName: this.state.teamName,
+      });
   }
 };
 
@@ -140,7 +158,7 @@ RegisterPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser,
+    currentUser: state.loginStatus.currentUser,
     teamsByName: state.teamsByName,
   };
 };

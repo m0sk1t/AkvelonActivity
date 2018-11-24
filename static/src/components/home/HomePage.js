@@ -40,7 +40,8 @@ class HomePage extends Component {
       .forEach(team => {
         teamNames.push(team.name);
         teamColors.push(team.color);
-        teamSteps.push(team.totalSteps);
+        const totalSteps = team.memberIds.reduce((sum, id) => employeesById[id] ? sum + employeesById[id].totalSteps : sum)
+        teamSteps.push(totalSteps);
         if (team.totalSteps >= teamsSuggestedMax) {
           teamsSuggestedMax = team.totalSteps + 5000 - (team.totalSteps % 5000)
         }

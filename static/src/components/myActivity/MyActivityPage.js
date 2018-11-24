@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Jumbotron, PageHeader, small, Button } from 'react-bootstrap';
@@ -8,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 import AchievementCard from './AchievementCard';
-
+import * as activityActions from '../../actions/activityActions';
 
 class MyActivityPage extends Component {
   constructor(props, context) {
@@ -28,7 +29,7 @@ class MyActivityPage extends Component {
       return <Redirect push to={`/teams/${currentUser.teamName}`} />;
     }
 
-    const achievements = Object.values(currentUser.achievements)
+    const achievements = Object.values(currentUser.achievements || {})
       .sort((a, b) => a.name - b.name)
       .map(achievement => {
         return <AchievementCard {...achievement} />
@@ -58,8 +59,14 @@ MyActivityPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser,
+    currentUser: state.loginStatus.currentUser,
   };
 };
 
-export default connect(mapStateToProps)(MyActivityPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(activityActions, dispatch)
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyActivityPage);

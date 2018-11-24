@@ -9,7 +9,8 @@ import SingleTeamPage from './teams/SingleTeamPage';
 import MyActivityPage from './myActivity/MyActivityPage';
 import RegisterPage from './myActivity/RegisterPage';
 
-const Routes = ({ loggedIn }) => {
+const Routes = ({ loggedIn, registered }) => {
+  console.log('Routes', loggedIn, registered)
   return (
     <div>
       <Route path='/' render={() => (
@@ -47,11 +48,15 @@ const Routes = ({ loggedIn }) => {
         redirectTo='/login'
         component={MyActivityPage}
       />
-      <PrivateRoute
+      <Route
         exact path='/myActivity/register'
         authed={loggedIn}
         redirectTo='/login'
-        component={RegisterPage}
+        render={() => {
+          if (!loggedIn) return <Redirect push to="/login" />
+          if (registered) return <Redirect push to="/myActivity" />
+          return <RegisterPage />
+        }}
       />
     </div>
   );

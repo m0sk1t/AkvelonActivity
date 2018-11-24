@@ -16,6 +16,8 @@ class App extends Component {
 
   render() {
     const loggedIn = this.props.loginStatus.loggedIn;
+    const registered = this.props.loginStatus.loggedIn && this.props.loginStatus.currentUser.registered;
+
 
     return (
       <div>
@@ -26,7 +28,7 @@ class App extends Component {
         <Grid className='text-center'>
           <Row>
             <Col md={12}>
-              <Routes loggedIn={loggedIn}/>
+              <Routes loggedIn={loggedIn} registered={registered}/>
             </Col>
           </Row>
         </Grid>

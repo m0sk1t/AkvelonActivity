@@ -1,5 +1,6 @@
 import { LOAD_TEAMS_SUCCESS, LOAD_EMPLOYEES_SUCCESS, LOAD_USER_SUCCESS, REGISTER_EMPLOYEE_SUCCESS } from '../constants/actionTypes';
 import ActivityAPI from '../api/ActivityAPI';
+import { push } from 'react-router-redux'
 
 export function loadActivity() {
   return function (dispatch) {
@@ -11,10 +12,10 @@ export function loadActivity() {
 }
 
 export function registerEmployee(currentUser) {
+  console.log('USER', currentUser)
   return function (dispatch) {
     return ActivityAPI.registerEmployee(currentUser).then(activity => {
-      dispatch(loadTeamsSuccess(activity.teamsByName));
-      dispatch(loadEmployeesSuccess(activity.employeesById));
+      dispatch(registerEmployeeSuccess(currentUser));
     }).catch(err => { throw (err) });
   }
 }

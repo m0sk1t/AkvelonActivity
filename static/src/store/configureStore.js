@@ -7,5 +7,5 @@ import rootReducer from '../reducers';
 export default function counfigureStore(initialState) {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  return createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(thunk, immutableStateInvariantMiddleware())));
+  return createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(thunk)));
 }
