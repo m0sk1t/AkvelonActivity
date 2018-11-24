@@ -3,11 +3,10 @@ const router = require('express').Router();
 
 const { ensureAuthenticated } = require('./auth');
 const {
+  getAll,
   getActivity,
-  getTotalActivityStepsByUser,
-  getAll
+  // getTotalActivityStepsByUser,
 } = require('../handlers/Activities');
-
 
 
 if (process.env.NODE_ENV === 'development') {

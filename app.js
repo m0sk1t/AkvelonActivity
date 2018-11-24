@@ -157,8 +157,8 @@ passport.use(new GoogleStrategy({
 
 app.use(router);
 
-
-cronUpdateJob.start();
+// TODO: db filling
+// cronUpdateJob.start();
 
 mongoose.connect(`mongodb://localhost/${DB}`);
 mongoose.connection.once('open', _ => console.log(`${chalk.green('✓')} successfully connected to db ${DB}!`))

@@ -2,7 +2,7 @@ const Activities = require('../models/Activities');
 const Users = require('../models/Users');
 const Teams = require('../models/Teams');
 
-const getAll = (req, res) => {
+const getAll = (_, res) => {
   let state = {
     teamsByName: {},
     employeeById: {}
@@ -14,9 +14,7 @@ const getAll = (req, res) => {
     Activities.find({}).lean().exec(),
   ])
     .then(values => {
-      let teams = values[0];
-      let users = values[1];
-      let activities = values[2];
+      const [teams, users, activities] = values;
 
       users.forEach(user => {
         let userActSumm = activities
@@ -44,10 +42,11 @@ const getAll = (req, res) => {
     });
 }
 
+
 const getActivity = (req, res) => {
   if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
-  
-  Activities.findById(req.user.id).lean().exec((err, Activity) => {
+
+  Activities.find({ userId: req.user._id }).lean().exec((err, Activity) => {
     if (err || !Activity) return res.status(500).json(err);
     return res.json(Activity);
   });
@@ -55,11 +54,11 @@ const getActivity = (req, res) => {
 
 
 const getTotalActivityStepsByUser = (req, res) => {
-  let userId = req.query.userId;
+  const userId = req.query.userId;
   // TODO: handle absence of start
-  let start = req.query.start ? new Date(req.query.start) : new Date('1970-01-01');
+  const start = req.query.start ? new Date(req.query.start) : new Date('1970-01-01');
   // TODO: handle absence of end
-  let end = req.query.end ? new Date(req.query.end) : Date.now();
+  const end = req.query.end ? new Date(req.query.end) : Date.now();
 
   Activities.aggregate([
     { "$match": { userId, timestamp: { $gte: start, $lte: end } } },
@@ -79,12 +78,9 @@ const getTotalActivityStepsByUser = (req, res) => {
         "steps": "$steps"
       }
     }
-  ], function (err, result) {
-    if (err) {
-      next(err);
-    } else {
-      res.json(result);
-    }
+  ], (err, result) => {
+    if (err) return res.json(err);
+    res.json(result);
   });
 }
 

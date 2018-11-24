@@ -22,6 +22,20 @@ const getUser = (req, res) => {
   });
 };
 
+const getTeamUsers = (req, res) => {
+  if (!req.params.teamId) return res.status(404).json({ message: 'team id is not specified'});
+
+  Users.find({ teamId }).lean().exec((err, teamUsers) => {
+    if (err || !User) return res.status(500).json(err);
+
+    return res.json(teamUsers.map(user => {
+      delete user.prism.token;
+      delete user.google.token;
+      return user;
+    }));
+  });
+};
+
 const updateUser = (req, res) => {
   if (!req.user) return res.status(401).json({ message: 'Unathorized' });
 
@@ -51,7 +65,7 @@ const deleteUser = (req, res) => {
 module.exports = {
   getSelf,
   getUser,
-  getUsers,
   updateUser,
   deleteUser,
+  getTeamUsers,
 };
