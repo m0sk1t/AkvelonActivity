@@ -23,9 +23,9 @@ const usersByLogin = {
       },
     ],
   },
-  'artem.litvinov': {
+  'alexey.semenov': {
     id: 12,
-    name: 'Artem Litvinov',
+    name: 'Alexey Semenov',
     registered: false,
   },
 }

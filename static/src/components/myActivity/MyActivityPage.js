@@ -39,7 +39,7 @@ class MyActivityPage extends Component {
       <Jumbotron>
         <PageHeader>
           <div style={{marginBottom: 10}}>{currentUser.name}</div>
-          <small>Achievements</small>
+          {(achievements.length > 0) && <small>Achievements</small>}
         </PageHeader>
         <div className='d-flex justify-content-start flex-wrap' style={{ marginBottom: 10 }}>
           {achievements}

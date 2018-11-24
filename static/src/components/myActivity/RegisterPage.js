@@ -128,8 +128,8 @@ class RegisterPage extends Component {
                 <CirclePicker color={color} onChangeComplete={ this.handleChangeComplete }/>
             </div>
           </FormGroup>
-
-            <Button bsStyle="primary" onClick={this.handleFormSubmit}>Join Akvelon Activity</Button>
+            <Button bsStyle="success" style={{marginBottom: 20, width: '51%'}} >Connect your Google Fit Account</Button>
+            <Button bsStyle="primary" style={{ marginBottom: 10, width: '51%' }} onClick={this.handleFormSubmit}>Join Akvelon Activity</Button>
           </form>
         </div>
       </Jumbotron>
@@ -145,7 +145,7 @@ class RegisterPage extends Component {
       {
         ...this.state.currentUser,
         registered: true,
-        totalSteps: 756,
+        totalSteps: 0,
         color: this.state.color,
         teamName: this.state.teamName,
       });
